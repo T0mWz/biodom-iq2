@@ -1,0 +1,20 @@
+version: '3.2'
+
+services:
+  mqtt:
+    container_name: mqtt
+    build: .
+    environment:
+      - MOSQUITTO_PASSWORDFILE='/mosquitto/config/passwordfile'
+    ports:
+      - 1883:1883
+      - 9001:9001
+
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./conf:/mosquitto/config
+      - ./data:/mosquitto/data
+      - ./log:/mosquitto/log
+    environment:
+     - TZ=Europe/Amsterdam
+    restart: always

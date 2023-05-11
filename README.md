@@ -1,4 +1,4 @@
-# Biodom IQ2 Controller running statistics 
+# Biodom IQ2 Controller running statistics
 
 Monitoring your Biodom IQ2 Controller via MQTT
 
@@ -51,3 +51,4 @@ Replace `192.168.123.123` with the IP of your mosquitto mqtt message broker
 Step 3 - Check of you get any messages in your mqtt broker, for example with http://mqtt-explorer.com/  
 <img width="307" alt="Screenshot 2023-05-11 at 22 56 26" src="https://github.com/T0mWz/biodom-iq2/assets/2477797/6bd097fe-04a7-479a-a7d6-bf8c96989338">
 
+Step 4 - Read the Biodom IQ2 controller mqtt values in your Home Automation system. For example https://www.home-assistant.io/

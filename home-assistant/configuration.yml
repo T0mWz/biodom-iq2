@@ -1,0 +1,71 @@
+
+...
+
+mqtt:
+  sensor:
+    - name: "Biodom Common"
+      state_topic: "2022hp0364/Common/all"
+      value_template: '{{ value_json.inputStatus }}'
+      json_attributes_topic: "2022hp0364/Common/all"
+      json_attributes_template: "{{ value_json | tojson }}"
+    - name: "Biodom HeatPump Status"
+      state_topic: "2022hp0364/HeatPump/all"
+      value_template: '{{ value_json.HPStatus }}'
+      json_attributes_topic: "2022hp0364/HeatPump/all"
+      json_attributes_template: "{{ value_json | tojson }}"
+    - name: "Biodom HeatPump Currrent Running Mode"
+      state_topic: "2022hp0364/HeatPump/all"
+      unit_of_measurement: "State"
+      value_template: >-
+        {% set mapper =  {
+            '0' : 'Standby',
+            '1' : 'Cooling',
+            '2' : 'Heating' } %}
+        {% set state =  value_json.CurrentRunningMode_2100 %}
+        {{ mapper[state] if state in mapper else 'Unknown' }}
+    - name: "Biodom HeatPump Outlet Temperature"
+      state_topic: "2022hp0364/HeatPump/all"
+      value_template: "{{ int(value_json['TOU'])/10 }}"
+      unit_of_measurement: "°C"
+    - name: "Biodom HeatPump Inlet Temperature"
+      state_topic: "2022hp0364/HeatPump/all"
+      value_template: "{{ int(value_json['TOI'])/10 }}"
+      unit_of_measurement: "°C"
+    - name: "Biodom HeatPump Outdoor Temperature"
+      state_topic: "2022hp0364/HeatPump/all"
+      value_template: "{{ int(value_json['EXTH'])/10 }}"
+      unit_of_measurement: "°C"
+    - name: "Biodom HeatPump Ambient Temperature"
+      state_topic: "2022hp0364/HeatPump/all"
+      value_template: "{{ int(value_json['HePuAmbientTemperature_2111'])/10 }}"
+      unit_of_measurement: "°C"
+    - name: "Biodom HeatPump Evaporator Temperature"
+      state_topic: "2022hp0364/HeatPump/all"
+      value_template: "{{ int(value_json['HePuEvaporatorTemperature_2112'])/10 }}"
+      unit_of_measurement: "°C"
+    - name: "Biodom HeatPump Gas Discharge Temperature"
+      state_topic: "2022hp0364/HeatPump/all"
+      value_template: "{{ int(value_json['HePuGasDischargeTemperature_2113'])/10 }}"
+      unit_of_measurement: "°C"
+    - name: "Biodom HeatPump Gas Return Temperature"
+      state_topic: "2022hp0364/HeatPump/all"
+      value_template: "{{ int(value_json['HePuGasReturnTemperature_2114'])/10 }}"
+      unit_of_measurement: "°C"
+    - name: "Biodom HeatPump Total KwH"
+      state_topic: "2022hp0364/HeatPump/all"
+      value_template: "{{ int(value_json['HePuACInputCurrent_2102']) }}"
+      unit_of_measurement: "kWh"
+    - name: "Biodom HeatPump Outdoor Unit Watt Power"
+      state_topic: "2022hp0364/HeatPump/all"
+      value_template: "{{ int(value_json['HePuMomentaryPower']) }}"
+      unit_of_measurement: "W"
+    - name: "Biodom HeatPump Frequency"
+      state_topic: "2022hp0364/HeatPump/all"
+      value_template: "{{ int(value_json['HePuCompRunningSpeed_2104']) }}"
+      unit_of_measurement: "Hz"
+    - name: "Biodom HeatPump Fan Running Speed"
+      state_topic: "2022hp0364/HeatPump/all"
+      value_template: "{{ int(value_json['HePuFan1RunningSpeed_2106']) }}"
+      unit_of_measurement: "RPM"
+
+...
